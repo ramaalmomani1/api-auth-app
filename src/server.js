@@ -8,14 +8,20 @@ app.use(cors())
 
 const pageNotFound = require('./errorhandler/404');
 const serverError = require('./errorhandler/500');
-const logger = require('./middleware/logger')
+const authRoutes = require('./routes/auth');
+//const logger = require('./middleware/logger')
 //  const PORT = process.env.PORT
 
 
-// app.use(logger);
+//app.use(logger);
 
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(authRoutes);
 app.use('*', pageNotFound);
 app.use(serverError);
+
 
 
 
