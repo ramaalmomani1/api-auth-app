@@ -30,8 +30,8 @@ const users = usersModel(sequelize, DataTypes);
 
 module.exports = {
   db: sequelize,
-  booksCollection: new DataCollection(booksModel),
-  classCollection: new DataCollection(classModel),
-  foodCollection: new DataCollection(foodModel),
+  book: new DataCollection(booksModel),
+  class: new DataCollection(classModel),
+  food: new DataCollection(foodModel),
   users: new DataCollection(users),
 };

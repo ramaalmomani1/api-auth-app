@@ -6,6 +6,6 @@ module.exports = (sequelize, DataTypes) => sequelize.define('class', {
  },
  numOfStudents:{
     type: DataTypes.INTEGER
- }
+ },
 }
 )
