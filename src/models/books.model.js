@@ -8,6 +8,9 @@ const booksModel = (sequelize, DataTypes) =>
     numOfPages: {
       type: DataTypes.INTEGER,
     },
+    studentID:{
+      type: DataTypes.INTEGER,
+    }
   });
 
 module.exports = booksModel;
