@@ -1,4 +1,4 @@
-const middleware = require('../basic'); //// Path to the middleware file
+const middleware = require('../basic'); /// Path to the middleware file
 const { users } = require('../../models/index');
 
 describe('Authentication Middleware', () => {
