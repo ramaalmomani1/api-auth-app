@@ -1,19 +1,19 @@
-'use strict';
+"use strict";
 
-const express = require('express');
+const express = require("express");
 
-const data = require('../models');
-const genralModles = require('../middleware/generalModels');
+const data = require("../models");
+const genralModles = require("../middleware/generalModels");
 
 const router = express.Router();
 
-router.param('model', genralModles);
+router.param("model", genralModles);
 
-router.get('/:model', handleGetAll);
-router.get('/:model/:id', handleGetOne);
-router.post('/:model', handleCreate);
-router.put('/:model/:id', handleUpdate);
-router.delete('/:model/:id', handleDelete);
+router.get("/:model", handleGetAll);
+router.get("/:model/:id", handleGetOne);
+router.post("/:model", handleCreate);
+router.put("/:model/:id", handleUpdate);
+router.delete("/:model/:id", handleDelete);
 
 async function handleGetAll(req, res, next) {
   try {
@@ -29,7 +29,7 @@ async function handleGetOne(req, res, next) {
     const id = req.params.id;
     const modelName = req.params.model;
 
-    if (modelName === 'student') {
+    if (modelName === "student") {
       const student = await req.model.get(id);
       const teachers = await student.getTeachers();
 
@@ -37,7 +37,7 @@ async function handleGetOne(req, res, next) {
         student,
         teachers,
       });
-    } else if (modelName === 'teacher') {
+    } else if (modelName === "teacher") {
       const teacher = await req.model.get(id);
       const students = await teacher.getStudents();
 
@@ -45,7 +45,7 @@ async function handleGetOne(req, res, next) {
         teacher,
         students,
       });
-    } else if (modelName === 'school') {
+    } else if (modelName === "school") {
       const school = await req.model.get(id);
       const teachers = await school.getTeachers();
       const students = await school.getStudents();
@@ -53,6 +53,18 @@ async function handleGetOne(req, res, next) {
       res.status(200).json({
         school,
         teachers,
+        students,
+      });
+    } else if (modelName === "course") {
+      const course = await req.model.get(id);
+      const school = await course.getSchool();
+      const teacher = await course.getTeacher();
+      const students = await course.getStudents();
+
+      res.status(200).json({
+        course,
+        school,
+        teacher,
         students,
       });
     } else {

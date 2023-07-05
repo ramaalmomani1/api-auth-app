@@ -1,4 +1,3 @@
-
 "use strict";
 
 const express = require("express");
@@ -56,6 +55,18 @@ async function handleGetOne(req, res, next) {
       res.status(200).json({
         school,
         teachers,
+        students,
+      });
+    } else if (modelName === "course") {
+      const course = await req.model.get(id);
+      const school = await course.getSchool();
+      const teacher = await course.getTeacher();
+      const students = await course.getStudents();
+
+      res.status(200).json({
+        course,
+        school,
+        teacher,
         students,
       });
     } else {
