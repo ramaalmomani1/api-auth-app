@@ -1,3 +1,4 @@
+
 "use strict";
 
 const express = require("express");
@@ -14,8 +15,8 @@ router.param("model", genralModles);
 router.get("/:model", bearer, handleGetAll);
 router.get("/:model/:id", bearer, handleGetOne);
 router.post("/:model", bearer, acl("create"), handleCreate);
-router.put("/:model/:id", bearer,acl('update'), handleUpdate);
-router.delete("/:model/:id", bearer,acl('delete'), handleDelete);
+router.put("/:model/:id", bearer, acl("update"), handleUpdate);
+router.delete("/:model/:id", bearer, acl("delete"), handleDelete);
 
 async function handleGetAll(req, res, next) {
   try {
@@ -29,8 +30,38 @@ async function handleGetAll(req, res, next) {
 async function handleGetOne(req, res, next) {
   try {
     const id = req.params.id;
-    let theRecord = await req.model.get(id);
-    res.status(200).json(theRecord);
+    const modelName = req.params.model;
+
+    if (modelName === "student") {
+      const student = await req.model.get(id);
+      const teachers = await student.getTeachers();
+
+      res.status(200).json({
+        student,
+        teachers,
+      });
+    } else if (modelName === "teacher") {
+      const teacher = await req.model.get(id);
+      const students = await teacher.getStudents();
+
+      res.status(200).json({
+        teacher,
+        students,
+      });
+    } else if (modelName === "school") {
+      const school = await req.model.get(id);
+      const teachers = await school.getTeachers();
+      const students = await school.getStudents();
+
+      res.status(200).json({
+        school,
+        teachers,
+        students,
+      });
+    } else {
+      const theRecord = await req.model.get(id);
+      res.status(200).json(theRecord);
+    }
   } catch (err) {
     next(err);
   }
