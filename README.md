@@ -78,3 +78,48 @@ This app is a server-side application, school management system app that utilize
 ### UML:
 
 ![Alt text](image.png)
+
+----
+
+**The app is built to handle API requests, authentication, and protected routes.**
+
+### Prerequisites
+
+Before running the application, ensure that you have the following installed:
+
+* Node.js
+* npm (Node Package Manager)
+ 
+ ----
+
+### Installation
+
+1. Clone the repository:
+
+> git clone https://github.com/your-repo.git
+
+2. Install the dependencies:
+
+> cd your-repo
+npm install
+
+3. Start the server:
+> npm start
+
+----
+
+### Usage
+Once the server is running, you can access the various routes and features of the application.
+
+### API Routes
+The API routes are accessible through the '/api' endpoint. These routes handle specific functionality and data operations. Refer to the API documentation for more details.
+
+### Authentication
+The authentication routes are used for user authentication and login. These routes are accessible without any specific endpoint and handle the authentication process.
+
+### Protected Routes
+The protected routes require authentication to access. These routes are accessible through the '/main' endpoint and provide additional functionality that is restricted to authenticated users only.
+
+### Error Handling
+The application includes error handlers for handling 404 (page not found) and 500 (server error) situations. If an invalid route is requested, the 404 error handler will be triggered. If any server errors occur, the 500 error handler will be invoked.
+
