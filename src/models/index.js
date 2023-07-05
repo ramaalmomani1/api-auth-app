@@ -9,8 +9,8 @@ const School = require("./school.model");
 const Teacher = require("./teacher.model");
 const Student = require("./student.model");
 
-const DB_URL =  
-process.env.NODE_ENV === "test" ? "sqlite:memory:" : process.env.DATABASE_URL;
+const DB_URL =
+  process.env.NODE_ENV === "test" ? "sqlite:memory:" : process.env.DATABASE_URL;
 
 let sequelizeOptions =
   process.env.NODE_ENV === "production"
