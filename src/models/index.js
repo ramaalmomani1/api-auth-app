@@ -1,4 +1,5 @@
 "use strict";
+require('dotenv').config();
 const { Sequelize, DataTypes } = require("sequelize");
 
 const DataCollection = require("./collection");
@@ -8,22 +9,22 @@ const School = require("./school.model");
 const Teacher = require("./teacher.model");
 const Student = require("./student.model");
 
-const DB_URL =
-  process.env.NODE_ENV === "test" ? "sqlite:memory:" : process.env.DATABASE_URL;
+// const DB_URL =  process.env.NODE_ENV === "test" ? "sqlite:memory:" : process.env.DATABASE_URL;
+const DATABASE_URL = process.env.DATABASE_URL || 'sqlite:memory:';
 
-let sequelizeOptions =
-  process.env.NODE_ENV === "production"
-    ? {
-        dialectOptions: {
-          ssl: {
-            require: true,
-            rejectUnauthorized: false,
-          },
-        },
-      }
-    : {};
+// let sequelizeOptions =
+//   process.env.NODE_ENV === "production"
+//     ? {
+//         dialectOptions: {
+//           ssl: {
+//             require: true,
+//             rejectUnauthorized: false,
+//           },
+//         },
+//       }
+//     : {};
 
-const sequelize = new Sequelize(DB_URL, sequelizeOptions);
+const sequelize = new Sequelize(DATABASE_URL, { });
 
 const users = usersModel(sequelize, DataTypes);
 const SchoolModel = School(sequelize, DataTypes);
