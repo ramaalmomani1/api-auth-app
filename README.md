@@ -1,7 +1,14 @@
 # api-auth-app v01
 
 **[Deployed link](https://api-auth-app-ewln.onrender.com/)**
+
+---- 
+
 **[Actions](https://github.com/ramaalmomani1/api-auth-app/actions)**
+
+---- 
+
+
 **[PR](https://github.com/ramaalmomani1/api-auth-app/pulls)**
 
 ----
