@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const SECRET = process.env.SECRET || "secert";
 
 const userModel = (sequelize, DataTypes) => {
-  const model = sequelize.define("users", {
+  const model = sequelize.define("User", {
     username: { type: DataTypes.STRING, allowNull:false, unique: true },
     password: { type: DataTypes.STRING, allowNull:false},
     role: {
