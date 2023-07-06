@@ -20,83 +20,121 @@ afterAll(async () => {
 
   describe('testing the server', () => {
 
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkxhaXRoIiwiaWF0IjoxNjg4NTQ1MjU2fQ.L30zjq1eBGScE5-kDoVZskkf7_oRM3VlfPQZ_0gkrvE';
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhbWEiLCJpYXQiOjE2ODg1OTk0OTB9.LJLDdXpDD3n276WQVPTCBUBR5yjPzJzVtFMBfBYZxSo';
     it('POST to /signup to create a new user.', async () => {
         const res = await req.post('/signup').send({
-            username: "Laith",
-            password: "123123",
+            username: "rama",
+            password: "123",
             role: "manager"
         })
         expect(res.status).toBe(201);
-        expect(res.body.user.username).toEqual('Laith')
+        expect(res.body.user.username).toEqual('rama')
     });
-    // it('POST to /signin to create a new user.', async () => {
-    //     const res = await req.post('/signin')
-    //     .set('Authorization',`Basic ${await base64.encode('Laith:123123')}`)
-    //     expect(res.status).toBe(200);
-    // });
-    // it('GET to /secret to create a new user.', async () => {
-    //     const res = await req.get('/secret')
-    //     .set('Authorization',`Bearer ${token}`)
-    //     expect(res.status).toBe(200);
-    // });
-    // it('should fail to access an authenticated route without a token', async () => {
-    //     const res = await req
-    //       .get('/secret');
+    it('POST to /signin to create a new user.', async () => {
+        const res = await req.post('/signin')
+        .set('Authorization',`Basic ${await base64.encode('rama:123')}`)
+        expect(res.status).toBe(200);
+    });
+    it('GET to /secret to create a new user.', async () => {
+        const res = await req.get('/secret')
+        .set('Authorization',`Bearer ${token}`)
+        expect(res.status).toBe(200);
+    });
+    it('should fail to access an authenticated route without a token', async () => {
+        const res = await req
+          .get('/secret');
     
-    //     // Assert the expected behavior based on the authentication status
-    //     expect(res.status).toBe(500);
-    //     // ...
-    //   });
+        // Assert the expected behavior based on the authentication status
+        expect(res.status).toBe(500);
+        // ...
+      });
 
-    // it('404 on a bad route', async () => {
-    //     const res = await req.get('/pagenotFound')
-    //     expect(res.status).toBe(404);
-    //   });
+    it('404 on a bad route', async () => {
+        const res = await req.get('/pagenotFound')
+        expect(res.status).toBe(404);
+      });
       
-    //   it('404 on a bad method', async () => {
-    //     const res = await req.post('/furniture/rags/1')
-    //     expect(res.status).toBe(404);
-    //   });
-    //   it('500 on a invalid model', async () => {
-    //     const res = await req.get('/furniture/raasd')
-    //     expect(res.status).toBe(500);
-    //   });
+      it('404 on a bad method', async () => {
+        const res = await req.post('/1')
+        expect(res.status).toBe(404);
+      });
+    
 
-    //   it('POST to /rags to create a new rag.', async () => {
-    //     const res = await req.post('/furniture/rags').send({
-    //         name: "test",
-    //         brand: "test",
-    //         type: "test",
-    //         url: "test"
-    //     }).set('Authorization',`Bearer ${token}`)
-    //     expect(res.status).toBe(201);
+      it('Add new student record', async () => {
+        const res = await req.post('/api/student').send({
+          name: "saleh",
+          grade: 9,
+          age: "15",
+          studentID: 1
+        });
+        const createdFood = JSON.parse(res.text);
+        expect(res.status).toBe(201);
+        expect(createdFood.name).toEqual('saleh')
+      });
+    
+      it('all student records ', async () => {
+        const res = await req.get('/api/student');
+        expect(res.status).toBe(200);
+      })
+    
+      it('Read one student record using id ', async () => {
+        const res = await req.get('/api/student/1');
+        expect(res.status).toBe(200);
+      })
+    
+      it('Update student record using id', async () => {
+        const res = await req.put('/api/student/1');
+        expect(res.status).toBe(200);
+      })
+    
+      it('Delete student record using id', async () => {
+        const res = await req.delete('/api/student/1');
+        expect(res.status).toBe(204);
+      })
+    
+
+
+
+
+
+
+
+      /////////////////////
+      it('POST to /student to create a new student.', async () => {
+        const res = await req.post('/main/student').send({
+            name: "saleh",
+            grade: 9,
+            age: "15",
+            studentID: 1
+        }).set('Authorization',`Bearer ${token}`)
+        expect(res.status).toBe(201);
         
-    // });
-    //   it('GET By Id to /rags to create a new rag.', async () => {
-    //     const res = await req.get('/furniture/rags/1')
+    });
+
+
+    //   it('GET By Id to /student to get student by id', async () => {
+    //     const res = await req.get('/main/student/1')
     //     expect(res.status).toBe(200);
-    //     // expect(res.body.type).toBe('test');
-        
+    //     expect(res.body.grade).toBe('9');
     // });
-    //   it('GET ALL to /rags to create a new rag.', async () => {
-    //     const res = await req.get('/furniture/rags')
+    //   it('GET ALL to /student to create a new rag.', async () => {
+    //     const res = await req.get('/main/student')
     //     expect(res.status).toBe(200);
     //     expect(Array.isArray(res.body)).toBe(true);
     // });
-    // it('Update to /rags to create a new rag.', async () => {
-    //     const res = await req.put('/furniture/rags/1').send({
-    //         name: "utest",
-    //         brand: "test",
-    //         type: "test",
-    //         url: "test"
+    // it('Update to /student to update student info', async () => {
+    //     const res = await req.put('/main/student/1').send({
+    //       name: "ahmad",
+    //       grade: 9,
+    //       age: "15",
+    //       studentID: 1
     //     }).set('Authorization',`Bearer ${token}`)
     //     expect(res.status).toBe(202);
-    //     expect(res.body.name).toBe("utest");
+    //     expect(res.body.name).toBe("ahmad");
         
     // });
-    // it('Delete to /rags to create a new rag.', async () => {
-    //     const res = await req.delete('/furniture/rags/1').set('Authorization',`Bearer ${token}`)
+    // it('Delete to /student to Delete a student', async () => {
+    //     const res = await req.delete('/main/student/1').set('Authorization',`Bearer ${token}`)
     //     expect(res.status).toBe(200);
     //     expect(res.body).toBe(1);
         

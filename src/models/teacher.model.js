@@ -12,7 +12,7 @@ const Teacher = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    schoolID: {
+    teacherID: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },

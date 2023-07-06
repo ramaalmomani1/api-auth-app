@@ -14,7 +14,7 @@ const Student = (sequelize, DataTypes) => sequelize.define('Student', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  schoolID: {
+  studentID: {
     type: DataTypes.INTEGER,
     allowNull: false,
   }
